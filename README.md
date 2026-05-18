@@ -281,3 +281,7 @@ IChatMediator <|.. SalaDeChat : Implementa
 Usuario --> IChatMediator : usa
 SalaDeChat --> Usuario : gestiona
 ```
+### Ejecución del escenario:
+```cmd
+python -m ejercicio3_mediator.main
+```
