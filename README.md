@@ -7,8 +7,7 @@
 - Jampier Santiago Moreno Arenas
 - Cesar Armando Heredia Londoño
 
-# Actividad 1 
-## Escenario
+# Escenario 1
 Compañía automotriz que permite a los clientes personalizar y ordenar un automóvil.
 
 ### Típo de patrón: **Patrón Creacional**
@@ -160,4 +159,76 @@ Se incluyen interfaces para cumplir con el principio de inversión de dependenci
 ### Ejecución del escenario:
 ```cmd
 python -m ejercicio1_builder.main
+```
+
+# Escenario 2
+Aplicación que gestiona la visualización de notificaciones en diferentes plataformas (por ejemplo: escritorio, móvil web).
+
+### Típo de patrón: **Patrón Estructural**
+El escenario indica un problema de acoplamiento entre dos dimensiones (tipos de notificación y plataformas de implementación) que evolucionan independientemente.
+
+### Patrón a utilizar: **Bridge (Patrón Puente)**
+El patrón **Bridge** es ideal debido a que permite separar la abstracción de su implementación para que ambas puedan variar de forma independiente.
+
+
+### Diagrama de clases:
+``` mermaid
+classDiagram
+
+class IPlataformaNotificacion {
+    <<interface>>
+    +mostrar(titulo : String, mensaje : String, nivel : String)
+}
+
+class PlataformaWeb {
+    +mostrar(titulo : String, mensaje : String, nivel : String)
+}
+
+class PlataformaMovil {
+    +mostrar(titulo : String, mensaje : String, nivel : String)
+}
+
+class PlataformaEscritorio {
+    -_ICONOS : dict
+    +mostrar(titulo : String, mensaje : String, nivel : String)
+}
+
+IPlataformaNotificacion <|.. PlataformaWeb
+IPlataformaNotificacion <|.. PlataformaMovil
+IPlataformaNotificacion <|.. PlataformaEscritorio
+
+class NotificacionBase {
+    -_plataforma : IPlataformaNotificacion
+    +NotificacionBase(plataforma : IPlataformaNotificacion)
+    +cambiar_plataforma(plataforma : IPlataformaNotificacion)
+    +enviar(titulo : String, mensaje : String)
+}
+
+class NotificacionMensaje {
+    +enviar(titulo : String, mensaje : String)
+}
+
+class NotificacionAlerta {
+    +enviar(titulo : String, mensaje : String)
+}
+
+class NotificacionAdvertencia {
+    +enviar(titulo : String, mensaje : String)
+}
+
+class NotificacionConfirmacion {
+    +enviar(titulo : String, mensaje : String)
+}
+
+NotificacionBase <|-- NotificacionMensaje
+NotificacionBase <|-- NotificacionAlerta
+NotificacionBase <|-- NotificacionAdvertencia
+NotificacionBase <|-- NotificacionConfirmacion
+
+NotificacionBase --> IPlataformaNotificacion : usa
+```
+
+### Ejecución del escenario:
+```cmd
+python -m ejercicio2_bridge.main
 ```
