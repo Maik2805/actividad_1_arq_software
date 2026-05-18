@@ -15,7 +15,7 @@ def main() -> None:
     print("DEMOSTRACIÓN PATRÓN MEDIATOR — Sala de Chat Grupal")
     print("=" * 70)
 
-    sala = SalaDeChat("Diplomado-IS")
+    sala = SalaDeChat("Diplomado-Arq Software")
 
     # Los usuarios NO se conocen entre sí — solo conocen al mediador.
     juan = Usuario("Juan")

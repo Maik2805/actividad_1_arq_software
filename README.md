@@ -232,3 +232,52 @@ NotificacionBase --> IPlataformaNotificacion : usa
 ```cmd
 python -m ejercicio2_bridge.main
 ```
+
+# Escenario 3
+Aplicación de chat grupal donde los usuarios pueden enviarse mensajes entre sí dentro de una sala de chat.
+
+### Típo de patrón: **Patrón de Comportamiento**
+El escenario indica un problema enfocado en cómo interactuan los objetos (usuarios), distribuir responsabilidades y reducir dependencias entre componentes.
+Se necesita controlar y centralizar las interacciones.
+
+### Patrón a utilizar: **Mediator (Patrón Mediador)**
+El patrón **Mediator** es ideal debido a que su propósito es reducir las dependencias directas entre objetos que se comunican, centralizando la interacción en un objeto mediador. Esto facilita el mantenimiento, mejora la modularidad y promueve un acoplamiento débil.
+
+
+### Diagrama de clases:
+``` mermaid
+classDiagram
+
+class IChatMediator {
+    <<interface>>
+    +registrar(usuario : Usuario) : None
+    +eliminar(nombre : String) : None
+    +enviar(emisor : Usuario, mensaje : String, destinatario : String?) : None
+}
+
+class SalaDeChat {
+    -_nombre : String
+    -_usuarios : Dict[String, Usuario]
+    -_historial : List[String]
+    +SalaDeChat(nombre : String)
+    +registrar(usuario : Usuario) : None
+    +eliminar(nombre : String) : None
+    +enviar(emisor : Usuario, mensaje : String, destinatario : String?) : None
+    +listar_usuarios() : List[String]
+    +mostrar_historial() : None
+    -_registrar_evento(evento : String) : None
+}
+
+class Usuario {
+    -nombre : String
+    -_mediador : IChatMediator?
+    +Usuario(nombre : String)
+    +set_mediador(mediador : IChatMediator?) : None
+    +enviar(mensaje : String, destinatario : String?) : None
+    +recibir(emisor : String, mensaje : String, privado : boolean = False) : None
+}
+
+IChatMediator <|.. SalaDeChat : Implementa
+Usuario --> IChatMediator : usa
+SalaDeChat --> Usuario : gestiona
+```
