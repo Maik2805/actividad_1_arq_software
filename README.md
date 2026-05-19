@@ -5,7 +5,7 @@
 - Juan Diego Camacho Parra
 - Miguel Angel Rozo Fonseca
 - Jampier Santiago Moreno Arenas
-- Cesar Armando Heredia Londoño  Test
+- Cesar Armando Heredia Londoño  
 
 # Escenario 1
 Compañía automotriz que permite a los clientes personalizar y ordenar un automóvil.
