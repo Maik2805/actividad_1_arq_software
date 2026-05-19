@@ -1,84 +1,59 @@
-"""
-Implementación concreta de IAutomovilBuilder.
-
-Sigue el patrón fluent interface: cada método de configuración devuelve
-self, lo que permite encadenar llamadas. La construcción final del
-producto inmutable se realiza en construir().
-"""
-from __future__ import annotations
-from typing import Optional
-
-from ejercicio1_builder.interfaces.i_automovil_builder import IAutomovilBuilder
-from ejercicio1_builder.domain.automovil import Automovil
+from interfaces.ibuilder_automovil import IBuilderAutomovil
+from models.automovil import Automovil
 
 
-class AutomovilBuilder(IAutomovilBuilder):
-    """Builder concreto para crear instancias de Automovil."""
+class AutomovilBuilder(IBuilderAutomovil):
+    """
+    Builder concreto.
+    Implementa la interfaz IBuilderAutomovil.
+    """
 
-    def __init__(self, modelo: str) -> None:
-        # Atributo obligatorio
-        self._modelo: str = modelo
-        # Valores por defecto razonables
-        self._motor: str = "1.6L Gasolina"
-        self._color: str = "Blanco"
-        self._llantas: str = "Aluminio 16''"
-        # Opcionales
-        self._sistema_sonido: Optional[str] = None
-        self._interiores: Optional[str] = None
-        self._techo_solar: bool = False
-        self._gps: bool = False
-        self._asientos_calefactados: bool = False
-        self._camara_reversa: bool = False
+    def __init__(self):
 
-   
-    def con_motor(self, motor: str) -> "AutomovilBuilder":
+        # Valores por defecto
+        self._motor = "Gasolina"
+        self._color = "Blanco"
+        self._llantas = "Estándar"
+        self._interior = "Tela"
+        self._sistema_sonido = "Básico"
+        self._gps = False
+        self._techo_solar = False
+
+    # =========================
+    # MÉTODOS DE CONFIGURACIÓN
+    # =========================
+
+    def set_motor(self, motor):
         self._motor = motor
         return self
 
-    def con_color(self, color: str) -> "AutomovilBuilder":
+    def set_color(self, color):
         self._color = color
         return self
 
-    def con_llantas(self, llantas: str) -> "AutomovilBuilder":
+    def set_llantas(self, llantas):
         self._llantas = llantas
         return self
 
-    def con_sistema_sonido(self, sistema: str) -> "AutomovilBuilder":
+    def set_interior(self, interior):
+        self._interior = interior
+        return self
+
+    def set_sistema_sonido(self, sistema):
         self._sistema_sonido = sistema
         return self
 
-    def con_interiores(self, interiores: str) -> "AutomovilBuilder":
-        self._interiores = interiores
+    def set_gps(self, gps):
+        self._gps = gps
         return self
 
-    def con_techo_solar(self, valor: bool = True) -> "AutomovilBuilder":
-        self._techo_solar = valor
+    def set_techo_solar(self, techo):
+        self._techo_solar = techo
         return self
 
-    def con_gps(self, valor: bool = True) -> "AutomovilBuilder":
-        self._gps = valor
-        return self
+    # =========================
+    # CREACIÓN FINAL DEL OBJETO
+    # =========================
 
-    def con_asientos_calefactados(self, valor: bool = True) -> "AutomovilBuilder":
-        self._asientos_calefactados = valor
-        return self
-
-    def con_camara_reversa(self, valor: bool = True) -> "AutomovilBuilder":
-        self._camara_reversa = valor
-        return self
-
-    
-    def construir(self) -> Automovil:
-        """Crea y devuelve el Automovil inmutable."""
-        return Automovil(
-            modelo=self._modelo,
-            motor=self._motor,
-            color=self._color,
-            llantas=self._llantas,
-            sistema_sonido=self._sistema_sonido,
-            interiores=self._interiores,
-            techo_solar=self._techo_solar,
-            gps=self._gps,
-            asientos_calefactados=self._asientos_calefactados,
-            camara_reversa=self._camara_reversa,
-        )
+    def build(self):
+        return Automovil(self)
