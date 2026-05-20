@@ -1,0 +1,2 @@
+--Creación de diagrama de clases/paquetes con Graphviz
+pyreverse -ASmy -o png -p ejercicio1_builder  builders models interfaces

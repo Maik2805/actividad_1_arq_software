@@ -1,4 +1,3 @@
-# actividad_1_arq_software
 # Escenario 2
 Aplicación que gestiona la visualización de notificaciones en diferentes plataformas (por ejemplo: escritorio, móvil web).
 

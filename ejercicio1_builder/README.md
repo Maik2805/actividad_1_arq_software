@@ -1,4 +1,3 @@
-# actividad_1_arq_software
 # Escenario 1
 Compañía automotriz que permite a los clientes personalizar y ordenar un automóvil.
 
